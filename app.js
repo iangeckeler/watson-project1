@@ -3,6 +3,7 @@
 const PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
 const requireText = require('require-text');
 const fs = require('fs')
+import toneSorter from './reader.js'
 
 
 // var personalityInsights = new PersonalityInsightsV3({
@@ -32,31 +33,38 @@ const fs = require('fs')
 //   }
 // });
 
-// tone analyzer
-var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+// // tone analyzer
+// var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+//
+// //api and requirements
+// var toneAnalyzer = new ToneAnalyzerV3({
+//   version_date: '2017-09-21',
+//   iam_apikey: 'jIavl_avmdfmEBuoql6Wm-BDL7mc4T4Dxjhog2CyULZ7',
+//   url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
+// });
+//
+// //read in contenttext file
+// const text = requireText('./content.txt', require)
+//
+// var toneParams = {
+//   tone_input: { 'text': text },
+//   content_type: 'application/json'
+// };
+//
+// toneAnalyzer.tone(toneParams, function (error, toneAnalysis) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log(JSON.stringify(toneAnalysis, null, 2));
+//     //currently writes to JSON file and saves it
+//     let data = JSON.stringify(toneAnalysis);
+//     fs.writeFileSync('toneAnalysis.json', data);
+//   }
+// });
 
-//api and requirements
-var toneAnalyzer = new ToneAnalyzerV3({
-  version_date: '2017-09-21',
-  iam_apikey: 'jIavl_avmdfmEBuoql6Wm-BDL7mc4T4Dxjhog2CyULZ7',
-  url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
-});
-
-//read in contenttext file
-const text = requireText('./content.txt', require)
-
-var toneParams = {
-  tone_input: { 'text': text },
-  content_type: 'application/json'
-};
-
-toneAnalyzer.tone(toneParams, function (error, toneAnalysis) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(JSON.stringify(toneAnalysis, null, 2));
-    //currently writes to JSON file and saves it
-    let data = JSON.stringify(toneAnalysis);
-    fs.writeFileSync('toneAnalysis.json', data);
-  }
-});
+let rawdata = fs.readFileSync('toneAnalysis.json');
+let tone = JSON.parse(rawdata);
+let overallTone = tone.document_tone.tones
+console.log(overallTone);
+console.log(overallTone.length)
+console.log(toneSorter(overallTone))

@@ -12,5 +12,9 @@
     "request": "^2.88.0",
     "require-text": "0.0.1",
     "watson-developer-cloud": "^3.13.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
   }
 }
