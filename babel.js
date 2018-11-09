@@ -1,3 +1,4 @@
+//babel compiles all of my code
 require('babel-register')({
     presets: [ 'env' ]
 })
